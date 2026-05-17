@@ -6,6 +6,8 @@
         <title>The Grapes</title>
         <meta name="description" content="The Grapes official site, upcoming shows, and social links.">
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Rye&display=swap');
+
             :root {
                 color-scheme: dark;
                 --panel: rgba(24, 18, 14, 0.78);
@@ -24,7 +26,7 @@
             body {
                 margin: 0;
                 min-height: 100vh;
-                font-family: 'Inter', sans-serif;
+                font-family: 'Montserrat', sans-serif;
                 color: var(--text);
                 background:
                     radial-gradient(circle at top left, rgba(209, 95, 47, 0.34), transparent 34%),
@@ -69,52 +71,90 @@
                 z-index: 1;
                 min-height: 100vh;
                 display: grid;
-                grid-template-columns: 1.2fr 0.8fr;
+                grid-template-columns: minmax(0, 1fr);
+                gap: clamp(1.5rem, 3vw, 2.5rem);
+                width: min(100%, 88rem);
+                margin: 0 auto;
+                padding: 0 clamp(1.1rem, 4vw, 2rem) 2rem;
+                justify-items: center;
             }
 
             .hero,
             .aside {
                 padding: 2rem;
+                min-width: 0;
+                width: min(100%, 72rem);
             }
 
             .hero {
+                position: relative;
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
-                gap: 2.5rem;
-                padding: 2rem 2rem 3rem;
+                justify-content: flex-start;
+                gap: 1.1rem;
+                padding: clamp(1rem, 1.8vw, 1.6rem);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 2.4rem;
+                overflow: visible;
+                text-align: left;
+                align-items: flex-start;
+                box-shadow: 0 30px 90px rgba(0, 0, 0, 0.38);
             }
 
-            .brand {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.75rem;
-                width: fit-content;
-                padding: 0.75rem 1rem;
-                border: 1px solid var(--panel-border);
-                border-radius: 999px;
-                background: rgba(255, 255, 255, 0.04);
-                backdrop-filter: blur(14px);
+            .hero-media {
+                position: relative;
+                width: 100%;
+                margin-top: 0.45rem;
+                border-radius: 2rem;
+                overflow: hidden;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                background: #0a0705;
+                box-shadow: 0 20px 56px rgba(0, 0, 0, 0.28);
             }
 
-            .brand-mark {
-                width: 0.9rem;
-                height: 0.9rem;
-                border-radius: 999px;
-                background: linear-gradient(135deg, var(--accent-bright), var(--accent));
-                box-shadow: 0 0 24px rgba(240, 165, 111, 0.55);
-            }
-
-            .brand span:last-child {
-                letter-spacing: 0.24em;
+            .hero-title {
+                position: absolute;
+                left: 50%;
+                top: 56%;
+                transform: translate(-50%, -50%);
+                z-index: 1;
+                width: min(92%, 40rem);
+                margin: 0;
+                padding: 0;
+                border: 0;
+                background: transparent;
+                color: #f6e8d7;
+                font-family: 'Mandingo', 'Rye', serif;
+                font-size: clamp(2rem, 5vw, 4.8rem);
+                line-height: 0.92;
+                letter-spacing: 0.06em;
                 text-transform: uppercase;
-                font-size: 0.72rem;
-                color: var(--muted);
+                text-align: center;
+                text-shadow:
+                    0 0 0.15rem rgba(0, 0, 0, 0.9),
+                    0 0 1rem rgba(0, 0, 0, 0.55),
+                    0 10px 28px rgba(0, 0, 0, 0.35);
+            }
+
+            .hero-media img {
+                display: block;
+                width: 100%;
+                height: min(56vw, 34rem);
+                object-fit: cover;
+                object-position: center 14%;
+                filter: grayscale(1) contrast(1.05) brightness(0.92);
             }
 
             .hero-copy {
-                max-width: 44rem;
-                padding-top: 2rem;
+                width: 100%;
+                max-width: none;
+                margin-top: 0;
+                padding: 1rem 1.1rem 1.1rem;
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                border-radius: 1.15rem;
+                background: linear-gradient(180deg, rgba(10, 7, 5, 0.9), rgba(10, 7, 5, 0.8));
+                box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+                backdrop-filter: blur(14px);
             }
 
             .eyebrow {
@@ -122,22 +162,25 @@
                 text-transform: uppercase;
                 letter-spacing: 0.22em;
                 font-size: 0.78rem;
-                color: var(--accent-soft);
+                color: #ffb86f;
             }
 
             h1 {
                 margin: 0;
-                font-family: 'Playfair Display', serif;
-                font-size: clamp(3.5rem, 8vw, 7.5rem);
-                line-height: 0.92;
-                letter-spacing: -0.05em;
+                font-family: 'Rye', serif;
+                font-size: clamp(2.2rem, 4.1vw, 4.4rem);
+                line-height: 0.96;
+                letter-spacing: 0.01em;
+                max-width: 14ch;
+                text-wrap: balance;
+                text-shadow: 0 4px 18px rgba(0, 0, 0, 0.42);
             }
 
             .lead {
-                max-width: 36rem;
-                margin: 1.5rem 0 0;
-                font-size: clamp(1.05rem, 1.6vw, 1.25rem);
-                line-height: 1.7;
+                max-width: 40rem;
+                margin: 1rem 0 0;
+                font-size: clamp(0.95rem, 1.35vw, 1.02rem);
+                line-height: 1.55;
                 color: var(--muted);
             }
 
@@ -145,7 +188,8 @@
                 display: flex;
                 flex-wrap: wrap;
                 gap: 1rem;
-                margin-top: 2rem;
+                margin-top: 1.25rem;
+                justify-content: flex-start;
             }
 
             .button {
@@ -156,6 +200,7 @@
                 padding: 0.9rem 1.35rem;
                 border-radius: 999px;
                 font-weight: 700;
+                letter-spacing: 0.04em;
                 text-decoration: none;
                 transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
             }
@@ -187,13 +232,14 @@
                 grid-template-columns: repeat(3, minmax(0, 1fr));
                 gap: 1rem;
                 margin-top: 2.5rem;
+                width: 100%;
             }
 
             .stat {
                 padding: 1rem 1.1rem;
                 border-radius: 1.2rem;
-                background: rgba(255, 255, 255, 0.05);
-                border: 1px solid var(--panel-border);
+                background: linear-gradient(180deg, rgba(20, 14, 10, 0.82), rgba(16, 11, 8, 0.76));
+                border: 1px solid rgba(255, 255, 255, 0.08);
                 backdrop-filter: blur(12px);
             }
 
@@ -210,19 +256,22 @@
 
             .aside {
                 display: grid;
-                align-content: end;
+                grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+                align-content: start;
                 gap: 1rem;
-                background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.08));
-                border-left: 1px solid rgba(255, 255, 255, 0.06);
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.045));
+                border: 1px solid rgba(255, 255, 255, 0.06);
+                border-radius: 2rem;
                 backdrop-filter: blur(18px);
+                justify-content: center;
             }
 
             .card {
                 padding: 1.25rem;
                 border-radius: 1.4rem;
-                background: var(--panel);
-                border: 1px solid var(--panel-border);
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.24);
+                background: linear-gradient(180deg, rgba(26, 18, 13, 0.92), rgba(18, 12, 9, 0.9));
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
             }
 
             .card h2 {
@@ -243,17 +292,21 @@
                 margin: 0 2rem 2rem;
                 padding: 1.5rem;
                 border-radius: 1.6rem;
-                background: rgba(255, 255, 255, 0.04);
-                border: 1px solid var(--panel-border);
+                background: linear-gradient(180deg, rgba(22, 15, 11, 0.92), rgba(15, 10, 7, 0.88));
+                border: 1px solid rgba(255, 255, 255, 0.08);
                 backdrop-filter: blur(14px);
+                width: min(100%, 88rem);
+                margin-left: auto;
+                margin-right: auto;
             }
 
             .booking header {
                 display: flex;
                 flex-wrap: wrap;
-                justify-content: space-between;
+                justify-content: center;
                 gap: 1rem;
                 margin-bottom: 1rem;
+                text-align: center;
             }
 
             .booking header h2 {
@@ -271,6 +324,8 @@
                 display: grid;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 1rem;
+                max-width: 72rem;
+                margin-inline: auto;
             }
 
             .field {
@@ -295,8 +350,8 @@
                 width: 100%;
                 padding: 0.95rem 1rem;
                 border-radius: 1rem;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                background: rgba(8, 6, 5, 0.55);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                background: rgba(8, 6, 5, 0.72);
                 color: var(--text);
                 font: inherit;
             }
@@ -308,7 +363,7 @@
 
             .booking-actions {
                 display: flex;
-                justify-content: flex-end;
+                justify-content: center;
             }
 
             .setlist {
@@ -322,9 +377,14 @@
             .setlist li {
                 display: flex;
                 justify-content: space-between;
+                align-items: flex-start;
                 gap: 1rem;
                 padding-bottom: 0.8rem;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            .setlist li > span:last-child {
+                flex-shrink: 0;
             }
 
             .setlist li:last-child {
@@ -336,13 +396,14 @@
                 display: flex;
                 flex-wrap: wrap;
                 gap: 0.75rem;
+                justify-content: center;
             }
 
             .badge {
                 padding: 0.65rem 0.9rem;
                 border-radius: 999px;
-                background: rgba(255, 255, 255, 0.05);
-                border: 1px solid var(--panel-border);
+                background: rgba(255, 255, 255, 0.06);
+                border: 1px solid rgba(255, 255, 255, 0.1);
                 color: var(--text);
                 font-size: 0.92rem;
                 text-decoration: none;
@@ -353,16 +414,32 @@
                 color: rgba(247, 239, 231, 0.7);
                 font-size: 0.9rem;
                 letter-spacing: 0.04em;
+                width: min(100%, 88rem);
+                margin-inline: auto;
+                text-align: center;
             }
 
             @media (max-width: 960px) {
-                .grid {
-                    grid-template-columns: 1fr;
+                .hero {
+                    gap: 0.9rem;
+                }
+
+                .hero-media img {
+                    height: min(72vw, 28rem);
+                    object-position: center 10%;
+                }
+
+                .hero-media {
+                    margin-top: 0.35rem;
+                }
+
+                .hero-title {
+                    width: min(94%, 28rem);
+                    top: 58%;
                 }
 
                 .aside {
-                    border-left: 0;
-                    border-top: 1px solid rgba(255, 255, 255, 0.06);
+                    grid-template-columns: 1fr;
                 }
 
                 .stats {
@@ -382,12 +459,57 @@
                     padding-top: 1.1rem;
                 }
 
+                .hero-copy {
+                    padding: 0.95rem 1rem 1rem;
+                }
+
+                .hero-media img {
+                    height: 16rem;
+                    object-position: center 8%;
+                }
+
+                .hero-media {
+                    margin-top: 0.3rem;
+                }
+
+                .hero-title {
+                    width: min(96%, 22rem);
+                    font-size: clamp(1.6rem, 10vw, 3rem);
+                    top: 60%;
+                }
+
+                h1 {
+                    max-width: none;
+                    font-size: clamp(2rem, 12vw, 3.4rem);
+                }
+
+                .lead {
+                    margin-top: 0.85rem;
+                }
+
+                .actions {
+                    margin-top: 1rem;
+                }
+
                 .card {
                     padding: 1rem;
                 }
 
+                .setlist li {
+                    flex-direction: column;
+                }
+
+                .setlist li > span:last-child {
+                    white-space: normal;
+                }
+
                 .button {
                     width: 100%;
+                }
+
+                .booking {
+                    margin-left: 1.1rem;
+                    margin-right: 1.1rem;
                 }
             }
         </style>
@@ -396,9 +518,9 @@
         <div class="shell">
             <main class="grid">
                 <section class="hero">
-                    <div class="brand" aria-label="The Grapes home">
-                        <span class="brand-mark"></span>
-                        <span>The Grapes</span>
+                    <div class="hero-media" aria-hidden="true">
+                        <img src="{{ asset('images/main.jpg') }}" alt="The Grapes band portrait" />
+                        <h2 class="hero-title">The Grapes</h2>
                     </div>
 
                     <div class="hero-copy">
@@ -474,14 +596,14 @@
                     <div>
                         <p class="eyebrow" style="margin-bottom:0.5rem;">Book The Grapes</p>
                         <h2>Send a booking enquiry</h2>
-                        <p>Use this form to share your event details and we’ll follow up from here.</p>
+                        <p>Use this form to share your event details and we'll follow up from here.</p>
                     </div>
                 </header>
 
                 <form class="booking-form">
                     <div class="field">
                         <label for="book-name">Your name</label>
-                        <input id="book-name" type="text" name="name" placeholder="Marcus Grau" />
+                        <input id="book-name" type="text" name="name" placeholder="Jon Doe" />
                     </div>
 
                     <div class="field">
@@ -505,7 +627,7 @@
                     </div>
 
                     <div class="field full booking-actions">
-                        <a class="button primary" href="mailto:hello@thegrapes.local?subject=Booking%20Enquiry">
+                        <a class="button primary" href="mailto:bookthegrapes@gmail.com?subject=Booking%20Enquiry">
                             Send Enquiry
                         </a>
                     </div>
