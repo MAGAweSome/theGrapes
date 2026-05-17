@@ -4,11 +4,12 @@
     <flux:heading class="sr-only">{{ __('Security settings') }}</flux:heading>
 
     <x-settings.layout :heading="__('Update password')" :subheading="__('Ensure your account is using a long, random password to stay secure')">
-        <form method="POST" wire:submit="updatePassword" class="mt-6 space-y-6">
+        <form method="POST" wire:submit="updatePassword" class="mt-6 space-y-6 text-white">
             <flux:input
                 wire:model="current_password"
                 :label="__('Current password')"
                 type="password"
+                class="text-white"
                 required
                 autocomplete="current-password"
                 viewable
@@ -37,13 +38,13 @@
 
         @if ($canManageTwoFactor)
             <section class="mt-12">
-                <flux:heading>{{ __('Two-factor authentication') }}</flux:heading>
-                <flux:subheading>{{ __('Manage your two-factor authentication settings') }}</flux:subheading>
+                <flux:heading class="text-white">{{ __('Two-factor authentication') }}</flux:heading>
+                <flux:subheading class="text-[#d7c5b3]">{{ __('Manage your two-factor authentication settings') }}</flux:subheading>
 
                 <div class="flex flex-col w-full mx-auto space-y-6 text-sm" wire:cloak>
                     @if ($twoFactorEnabled)
                         <div class="space-y-4">
-                            <flux:text>
+                            <flux:text class="text-[#d7c5b3]">
                                 {{ __('You will be prompted for a secure, random pin during login, which you can retrieve from the TOTP-supported application on your phone.') }}
                             </flux:text>
 
@@ -60,7 +61,7 @@
                         </div>
                     @else
                         <div class="space-y-4">
-                            <flux:text variant="subtle">
+                            <flux:text variant="subtle" class="text-[#d7c5b3]">
                                 {{ __('When you enable two-factor authentication, you will be prompted for a secure pin during login. This pin can be retrieved from a TOTP-supported application on your phone.') }}
                             </flux:text>
 
@@ -177,7 +178,7 @@
                         <div class="space-y-4">
                             <div class="relative flex items-center justify-center w-full">
                                 <div class="absolute inset-0 w-full h-px top-1/2 bg-stone-200 dark:bg-stone-600"></div>
-                                <span class="relative px-2 text-sm bg-white dark:bg-stone-800 text-stone-600 dark:text-stone-400">
+                                <span class="relative px-2 text-sm bg-white dark:bg-stone-800 text-white dark:text-white">
                                     {{ __('or, enter the code manually') }}
                                 </span>
                             </div>
@@ -207,7 +208,7 @@
                                             type="text"
                                             readonly
                                             value="{{ $manualSetupKey }}"
-                                            class="w-full p-3 bg-transparent outline-none text-stone-900 dark:text-stone-100"
+                                            class="w-full p-3 bg-transparent outline-none text-white placeholder:text-white/30"
                                         />
 
                                         <button

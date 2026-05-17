@@ -18,7 +18,7 @@
                         </a>
 
                         <div class="flex items-center gap-3">
-                            <flux:button variant="ghost" size="sm" :href="route('home')" wire:navigate>
+                            <flux:button variant="ghost" size="sm" class="!text-white hover:!text-white hover:bg-white/10" :href="route('home')" wire:navigate>
                                 {{ __('View site') }}
                             </flux:button>
 
@@ -30,15 +30,15 @@
                                 />
 
                                 <flux:menu>
-                                    <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
+                                    <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm text-black">
                                         <flux:avatar
                                             :name="auth()->user()->name"
                                             :initials="auth()->user()->initials()"
                                         />
 
-                                        <div class="grid flex-1 text-start text-sm leading-tight">
-                                            <flux:heading class="truncate">{{ auth()->user()->name }}</flux:heading>
-                                            <flux:text class="truncate">{{ auth()->user()->email }}</flux:text>
+                                        <div class="grid flex-1 text-start text-sm leading-tight text-black">
+                                            <flux:heading class="truncate text-black">{{ auth()->user()->name }}</flux:heading>
+                                            <flux:text class="truncate text-black">{{ auth()->user()->email }}</flux:text>
                                         </div>
                                     </div>
 

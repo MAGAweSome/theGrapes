@@ -1,6 +1,17 @@
 @import 'tailwindcss';
 @import '../../vendor/livewire/flux/dist/flux.css';
 
+:root {
+    --flux-input-placeholder-color: #555; /* darker placeholder */
+}
+
+[data-flux-control]::placeholder,
+input::placeholder,
+textarea::placeholder {
+    color: #555 !important;
+    opacity: 1 !important;
+}
+
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';

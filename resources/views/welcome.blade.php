@@ -66,6 +66,110 @@
                 background: rgba(240, 165, 111, 0.14);
             }
 
+            .instrument-rail {
+                display: none;
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                width: clamp(6rem, 10vw, 8.5rem);
+                z-index: 0;
+                pointer-events: none;
+                opacity: 0.92;
+            }
+
+            .instrument-rail.left {
+                left: 0;
+            }
+
+            .instrument-rail.right {
+                right: 0;
+            }
+
+            .instrument-item {
+                position: absolute;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 4.75rem;
+                height: 4.75rem;
+                padding: 0.35rem;
+                border-radius: 1.6rem;
+                background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), rgba(24, 18, 14, 0.1) 42%, transparent 72%);
+                border: none;
+                box-shadow: none;
+                color: #f7e7d1;
+                backdrop-filter: none;
+                opacity: 0.95;
+            }
+
+            .instrument-item img {
+                width: 3.2rem;
+                height: 3.2rem;
+                object-fit: contain;
+                filter: brightness(0) saturate(100%) invert(91%) sepia(18%) saturate(270%) hue-rotate(338deg) brightness(106%) contrast(94%) drop-shadow(0 0 0.45rem rgba(255, 177, 92, 0.18));
+                opacity: 1;
+            }
+
+            .instrument-item.accent {
+                color: var(--text);
+            }
+
+            .instrument-rail.left .instrument-item:nth-child(1) {
+                top: 22%;
+                left: 0.65rem;
+                transform: rotate(-12deg);
+            }
+
+            .instrument-rail.left .instrument-item:nth-child(2) {
+                top: 36%;
+                left: 1.4rem;
+                width: 5.1rem;
+                height: 5.1rem;
+                transform: rotate(8deg);
+            }
+
+            .instrument-rail.left .instrument-item:nth-child(3) {
+                top: 56%;
+                left: 0.8rem;
+                transform: rotate(-7deg);
+            }
+
+            .instrument-rail.left .instrument-item:nth-child(4) {
+                top: 73%;
+                left: 1.5rem;
+                width: 5.25rem;
+                height: 5.25rem;
+                transform: rotate(14deg);
+            }
+
+            .instrument-rail.right .instrument-item:nth-child(1) {
+                top: 28%;
+                right: 1rem;
+                width: 5.05rem;
+                height: 5.05rem;
+                transform: rotate(11deg);
+            }
+
+            .instrument-rail.right .instrument-item:nth-child(2) {
+                top: 46%;
+                right: 0.7rem;
+                transform: rotate(-9deg);
+            }
+
+            .instrument-rail.right .instrument-item:nth-child(3) {
+                top: 66%;
+                right: 1.35rem;
+                width: 5.15rem;
+                height: 5.15rem;
+                transform: rotate(16deg);
+            }
+
+            @media (min-width: 1380px) {
+                .instrument-rail {
+                    display: block;
+                }
+            }
+
             .grid {
                 position: relative;
                 z-index: 1;
@@ -289,15 +393,13 @@
             }
 
             .booking {
-                margin: 0 2rem 2rem;
+                margin: 0 auto 2rem;
                 padding: 1.5rem;
                 border-radius: 1.6rem;
                 background: linear-gradient(180deg, rgba(22, 15, 11, 0.92), rgba(15, 10, 7, 0.88));
                 border: 1px solid rgba(255, 255, 255, 0.08);
                 backdrop-filter: blur(14px);
-                width: min(100%, 88rem);
-                margin-left: auto;
-                margin-right: auto;
+                width: min(100%, 72rem);
             }
 
             .booking header {
@@ -364,6 +466,11 @@
             .booking-actions {
                 display: flex;
                 justify-content: center;
+            }
+
+            .socials-bottom {
+                margin: 0 auto 2rem;
+                width: min(100%, 72rem);
             }
 
             .setlist {
@@ -511,11 +618,39 @@
                     margin-left: 1.1rem;
                     margin-right: 1.1rem;
                 }
+
             }
         </style>
     </head>
     <body>
         <div class="shell">
+            <div class="instrument-rail left" aria-hidden="true">
+                <span class="instrument-item">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4488/4488189.png" alt="" aria-hidden="true" />
+                </span>
+                <span class="instrument-item accent">
+                    <img src="https://cdn-icons-png.flaticon.com/512/96/96421.png" alt="" aria-hidden="true" />
+                </span>
+                <span class="instrument-item">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2741/2741297.png" alt="" aria-hidden="true" />
+                </span>
+                <span class="instrument-item accent">
+                    <img src="https://cdn-icons-png.flaticon.com/512/9288/9288569.png" alt="" aria-hidden="true" />
+                </span>
+            </div>
+
+            <div class="instrument-rail right" aria-hidden="true">
+                <span class="instrument-item accent">
+                    <img src="https://cdn-icons-png.flaticon.com/512/11023/11023831.png" alt="" aria-hidden="true" />
+                </span>
+                <span class="instrument-item">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4900/4900892.png" alt="" aria-hidden="true" />
+                </span>
+                <span class="instrument-item accent">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2168/2168497.png" alt="" aria-hidden="true" />
+                </span>
+            </div>
+
             <main class="grid">
                 <section class="hero">
                     <div class="hero-media" aria-hidden="true">
@@ -565,7 +700,12 @@
                                             <strong style="display:block;color:var(--text);font-size:1rem;">{{ $show->title }}</strong>
                                             <span>{{ $show->venue }}</span>
                                         </span>
-                                        <span style="text-align:right;white-space:nowrap;">{{ $show->event_date->format('M j') }}@if ($show->event_time) · {{ substr($show->event_time, 0, 5) }}@endif</span>
+                                        <span style="text-align:right;white-space:nowrap;">
+                                            {{ $show->event_date->format('M j') }}
+                                            @if ($show->event_time)
+                                                · {{ \Illuminate\Support\Carbon::parse($show->event_time)->format('g:i A') }}
+                                            @endif
+                                        </span>
                                     </li>
                                 @endforeach
                             </ul>
@@ -574,20 +714,6 @@
                         @endif
                     </article>
 
-                    <article class="card" id="socials">
-                        <h2>Socials</h2>
-                        @if ($socialLinks->isNotEmpty())
-                            <div class="badge-row">
-                                @foreach ($socialLinks as $socialLink)
-                                    <a class="badge" href="{{ $socialLink->url }}" target="_blank" rel="noreferrer">
-                                        {{ $socialLink->label ?: $socialLink->platform }}
-                                    </a>
-                                @endforeach
-                            </div>
-                        @else
-                            <p>No social links have been added yet.</p>
-                        @endif
-                    </article>
                 </aside>
             </main>
 
@@ -632,6 +758,23 @@
                         </a>
                     </div>
                 </form>
+            </section>
+
+            <section class="socials-bottom" id="socials" aria-label="Social links">
+                <article class="card">
+                    <h2>Socials</h2>
+                    @if ($socialLinks->isNotEmpty())
+                        <div class="badge-row">
+                            @foreach ($socialLinks as $socialLink)
+                                <a class="badge" href="{{ $socialLink->url }}" target="_blank" rel="noreferrer">
+                                    {{ $socialLink->label ?: $socialLink->platform }}
+                                </a>
+                            @endforeach
+                        </div>
+                    @else
+                        <p>No social links have been added yet.</p>
+                    @endif
+                </article>
             </section>
 
             <div class="footer-note">
