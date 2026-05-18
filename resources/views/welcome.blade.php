@@ -8,6 +8,12 @@
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Rye&display=swap');
 
+            @font-face {
+                font-family: 'Mandingo';
+                src: url("{{ asset('fonts/MANDINGO.TTF') }}") format('truetype');
+                font-display: swap;
+            }
+
             :root {
                 color-scheme: dark;
                 --panel: rgba(24, 18, 14, 0.78);
@@ -219,9 +225,14 @@
             .hero-title {
                 position: absolute;
                 left: 50%;
-                top: 56%;
+                top: 61%;
                 transform: translate(-50%, -50%);
                 z-index: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 0.12em;
                 width: min(92%, 40rem);
                 margin: 0;
                 padding: 0;
@@ -229,15 +240,25 @@
                 background: transparent;
                 color: #f6e8d7;
                 font-family: 'Mandingo', 'Rye', serif;
-                font-size: clamp(2rem, 5vw, 4.8rem);
-                line-height: 0.92;
-                letter-spacing: 0.06em;
+                line-height: 0.86;
                 text-transform: uppercase;
                 text-align: center;
                 text-shadow:
                     0 0 0.15rem rgba(0, 0, 0, 0.9),
                     0 0 1rem rgba(0, 0, 0, 0.55),
                     0 10px 28px rgba(0, 0, 0, 0.35);
+            }
+
+            .hero-title .wordmark-top {
+                font-size: clamp(2.2rem, 5.6vw, 5.2rem);
+                letter-spacing: 0.07em;
+                transform: translateX(0.04em);
+            }
+
+            .hero-title .wordmark-bottom {
+                font-size: clamp(2.2rem, 5.6vw, 5.2rem);
+                letter-spacing: 0.07em;
+                line-height: 0.86;
             }
 
             .hero-media img {
@@ -655,7 +676,7 @@
                 <section class="hero">
                     <div class="hero-media" aria-hidden="true">
                         <img src="{{ asset('images/main.jpg') }}" alt="The Grapes band portrait" />
-                        <h2 class="hero-title">The Grapes</h2>
+                        <h2 class="hero-title"><span class="wordmark-top">The</span><span class="wordmark-bottom">Grapes</span></h2>
                     </div>
 
                     <div class="hero-copy">
@@ -683,7 +704,12 @@
                             </div>
                             <div class="stat">
                                 <strong>{{ $featuredShow?->venue ?? 'Live' }}</strong>
-                                <span>{{ $featuredShow ? $featuredShow->event_date->format('M j') : 'Next featured show appears here.' }}</span>
+                                <span>
+                                    {{ $featuredShow ? $featuredShow->event_date->format('M j') : 'Next featured show appears here.' }}
+                                    @if ($featuredShow?->event_time)
+                                        · {{ \Illuminate\Support\Carbon::parse($featuredShow->event_time)->format('g:i A') }}
+                                    @endif
+                                </span>
                             </div>
                         </div>
                     </div>
