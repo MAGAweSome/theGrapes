@@ -9,7 +9,6 @@
                 wire:model="current_password"
                 :label="__('Current password')"
                 type="password"
-                class="text-white"
                 required
                 autocomplete="current-password"
                 viewable

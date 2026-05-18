@@ -17,12 +17,98 @@
                 <div class="text-2xl font-bold text-white">{{ $this->socialLinks->count() }}</div>
                 <div class="mt-1 text-xs uppercase tracking-[0.18em] text-[#d7c5b3]">Social links</div>
             </div>
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <div class="text-2xl font-bold text-white">Admin</div>
-                <div class="mt-1 text-xs uppercase tracking-[0.18em] text-[#d7c5b3]">Verified access</div>
-            </div>
         </div>
     </header>
+
+    <div class="grid gap-6 xl:grid-cols-2">
+        <article id="shows-list" class="rounded-3xl border border-white/10 bg-[#15100d]/90 p-6 shadow-2xl shadow-black/20">
+            <div class="mb-5 flex items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-lg font-semibold text-white">Upcoming shows</h2>
+                    <p class="mt-1 text-sm text-[#d7c5b3]">Review, edit, or remove upcoming dates.</p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                @forelse ($this->shows as $show)
+                    <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                        <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                            <div class="space-y-2">
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <h3 class="text-base font-semibold text-white">{{ $show->title }}</h3>
+                                    @if ($show->is_featured)
+                                        <span class="rounded-full bg-[#f0a56f]/20 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#ffcf9e]">Featured</span>
+                                    @endif
+                                    <span class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#d7c5b3]">
+                                        {{ $show->is_published ? 'Published' : 'Hidden' }}
+                                    </span>
+                                </div>
+
+                                <p class="text-sm text-[#d7c5b3]">{{ $show->venue }} · {{ $show->event_date->format('M j, Y') }}@if ($show->event_time) · {{ substr($show->event_time, 0, 5) }}@endif</p>
+
+                                @if ($show->description)
+                                    <p class="max-w-3xl text-sm leading-6 text-[#bfae9f]">{{ $show->description }}</p>
+                                @endif
+
+                                @if ($show->ticket_url)
+                                    <a href="{{ $show->ticket_url }}" target="_blank" class="inline-flex text-sm font-medium text-[#ffcf9e] underline decoration-[#ffcf9e]/40 underline-offset-4">Ticket link</a>
+                                @endif
+                            </div>
+
+                            <div class="flex flex-wrap gap-2 lg:justify-end">
+                                <button type="button" wire:click="editShow({{ $show->id }})" class="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/5">Edit</button>
+                                <button type="button" wire:click="deleteShow({{ $show->id }})" wire:confirm="Delete this show?" class="rounded-full border border-red-400/20 px-4 py-2 text-sm font-medium text-red-200 transition hover:bg-red-500/10">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="rounded-2xl border border-dashed border-white/15 bg-white/5 p-6 text-sm text-[#d7c5b3]">
+                        No shows yet. Add the first date using the form below.
+                    </div>
+                @endforelse
+            </div>
+        </article>
+
+        <article id="socials-list" class="rounded-3xl border border-white/10 bg-[#15100d]/90 p-6 shadow-2xl shadow-black/20">
+            <div class="mb-5 flex items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-lg font-semibold text-white">Social links</h2>
+                    <p class="mt-1 text-sm text-[#d7c5b3]">Keep your public profiles and booking links aligned.</p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                @forelse ($this->socialLinks as $socialLink)
+                    <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                        <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                            <div class="space-y-2">
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <h3 class="text-base font-semibold text-white">{{ $socialLink->platform }}</h3>
+                                    @if ($socialLink->label)
+                                        <span class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#d7c5b3]">{{ $socialLink->label }}</span>
+                                    @endif
+                                    <span class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#d7c5b3]">
+                                        {{ $socialLink->is_active ? 'Visible' : 'Hidden' }}
+                                    </span>
+                                </div>
+
+                                <a href="{{ $socialLink->url }}" target="_blank" class="break-all text-sm font-medium text-[#ffcf9e] underline decoration-[#ffcf9e]/40 underline-offset-4">{{ $socialLink->url }}</a>
+                            </div>
+
+                            <div class="flex flex-wrap gap-2 lg:justify-end">
+                                <button type="button" wire:click="editSocial({{ $socialLink->id }})" class="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/5">Edit</button>
+                                <button type="button" wire:click="deleteSocial({{ $socialLink->id }})" wire:confirm="Delete this social link?" class="rounded-full border border-red-400/20 px-4 py-2 text-sm font-medium text-red-200 transition hover:bg-red-500/10">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="rounded-2xl border border-dashed border-white/15 bg-white/5 p-6 text-sm text-[#d7c5b3]">
+                        No social links yet. Add Instagram, Facebook, YouTube, or booking links below.
+                    </div>
+                @endforelse
+            </div>
+        </article>
+    </div>
 
     <div class="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
         <article id="show-form" class="rounded-3xl border border-white/10 bg-[#15100d]/90 p-6 shadow-2xl shadow-black/20">
@@ -165,96 +251,6 @@
                     </button>
                 </div>
             </form>
-        </article>
-    </div>
-
-    <div class="grid gap-6 xl:grid-cols-2">
-        <article id="shows-list" class="rounded-3xl border border-white/10 bg-[#15100d]/90 p-6 shadow-2xl shadow-black/20">
-            <div class="mb-5 flex items-center justify-between gap-4">
-                <div>
-                    <h2 class="text-lg font-semibold text-white">Upcoming shows</h2>
-                    <p class="mt-1 text-sm text-[#d7c5b3]">Review, edit, or remove upcoming dates.</p>
-                </div>
-            </div>
-
-            <div class="space-y-4">
-                @forelse ($this->shows as $show)
-                    <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-                        <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                            <div class="space-y-2">
-                                <div class="flex flex-wrap items-center gap-2">
-                                    <h3 class="text-base font-semibold text-white">{{ $show->title }}</h3>
-                                    @if ($show->is_featured)
-                                        <span class="rounded-full bg-[#f0a56f]/20 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#ffcf9e]">Featured</span>
-                                    @endif
-                                    <span class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#d7c5b3]">
-                                        {{ $show->is_published ? 'Published' : 'Hidden' }}
-                                    </span>
-                                </div>
-
-                                <p class="text-sm text-[#d7c5b3]">{{ $show->venue }} · {{ $show->event_date->format('M j, Y') }}@if ($show->event_time) · {{ substr($show->event_time, 0, 5) }}@endif</p>
-
-                                @if ($show->description)
-                                    <p class="max-w-3xl text-sm leading-6 text-[#bfae9f]">{{ $show->description }}</p>
-                                @endif
-
-                                @if ($show->ticket_url)
-                                    <a href="{{ $show->ticket_url }}" target="_blank" class="inline-flex text-sm font-medium text-[#ffcf9e] underline decoration-[#ffcf9e]/40 underline-offset-4">Ticket link</a>
-                                @endif
-                            </div>
-
-                            <div class="flex flex-wrap gap-2 lg:justify-end">
-                                <button type="button" wire:click="editShow({{ $show->id }})" class="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/5">Edit</button>
-                                <button type="button" wire:click="deleteShow({{ $show->id }})" wire:confirm="Delete this show?" class="rounded-full border border-red-400/20 px-4 py-2 text-sm font-medium text-red-200 transition hover:bg-red-500/10">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                    <div class="rounded-2xl border border-dashed border-white/15 bg-white/5 p-6 text-sm text-[#d7c5b3]">
-                        No shows yet. Add the first date using the form above.
-                    </div>
-                @endforelse
-            </div>
-        </article>
-
-        <article id="socials-list" class="rounded-3xl border border-white/10 bg-[#15100d]/90 p-6 shadow-2xl shadow-black/20">
-            <div class="mb-5 flex items-center justify-between gap-4">
-                <div>
-                    <h2 class="text-lg font-semibold text-white">Social links</h2>
-                    <p class="mt-1 text-sm text-[#d7c5b3]">Keep your public profiles and booking links aligned.</p>
-                </div>
-            </div>
-
-            <div class="space-y-4">
-                @forelse ($this->socialLinks as $socialLink)
-                    <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-                        <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                            <div class="space-y-2">
-                                <div class="flex flex-wrap items-center gap-2">
-                                    <h3 class="text-base font-semibold text-white">{{ $socialLink->platform }}</h3>
-                                    @if ($socialLink->label)
-                                        <span class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#d7c5b3]">{{ $socialLink->label }}</span>
-                                    @endif
-                                    <span class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#d7c5b3]">
-                                        {{ $socialLink->is_active ? 'Visible' : 'Hidden' }}
-                                    </span>
-                                </div>
-
-                                <a href="{{ $socialLink->url }}" target="_blank" class="break-all text-sm font-medium text-[#ffcf9e] underline decoration-[#ffcf9e]/40 underline-offset-4">{{ $socialLink->url }}</a>
-                            </div>
-
-                            <div class="flex flex-wrap gap-2 lg:justify-end">
-                                <button type="button" wire:click="editSocial({{ $socialLink->id }})" class="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/5">Edit</button>
-                                <button type="button" wire:click="deleteSocial({{ $socialLink->id }})" wire:confirm="Delete this social link?" class="rounded-full border border-red-400/20 px-4 py-2 text-sm font-medium text-red-200 transition hover:bg-red-500/10">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                    <div class="rounded-2xl border border-dashed border-white/15 bg-white/5 p-6 text-sm text-[#d7c5b3]">
-                        No social links yet. Add Instagram, Facebook, YouTube, or booking links above.
-                    </div>
-                @endforelse
-            </div>
         </article>
     </div>
 

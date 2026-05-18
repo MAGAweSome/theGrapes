@@ -22,8 +22,17 @@
 
         .settings-surface input,
         .settings-surface textarea {
-            color: rgba(24, 18, 14, 0.92) !important;
-            caret-color: rgba(24, 18, 14, 0.92) !important;
+            color: #555 !important;
+            caret-color: #555 !important;
+            -webkit-text-fill-color: #555 !important;
+        }
+
+        .settings-surface [data-flux-control],
+        .settings-surface [data-flux-control] input,
+        .settings-surface [data-flux-control] textarea {
+            color: #555 !important;
+            caret-color: #555 !important;
+            -webkit-text-fill-color: #555 !important;
         }
 
         .settings-surface input::placeholder,

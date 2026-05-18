@@ -37,7 +37,7 @@
                                         />
 
                                         <div class="grid flex-1 text-start text-sm leading-tight text-black">
-                                            <flux:heading class="truncate text-black">{{ auth()->user()->name }}</flux:heading>
+                                            <flux:heading class="truncate text-black">{{ \Illuminate\Support\Str::title(auth()->user()->name) }}</flux:heading>
                                             <flux:text class="truncate text-black">{{ auth()->user()->email }}</flux:text>
                                         </div>
                                     </div>
