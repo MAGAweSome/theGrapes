@@ -3,7 +3,7 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-[#060504] antialiased text-white">
+    <body class="min-h-screen bg-[#060504] antialiased text-white" x-data="{ sitePreviewOpen: false }" @keydown.escape.window="sitePreviewOpen = false">
         <div class="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(209,95,47,0.28),_transparent_36%),radial-gradient(circle_at_top_right,_rgba(240,165,111,0.12),_transparent_32%),linear-gradient(135deg,_#060504_0%,_#120d0a_42%,_#1b120d_100%)]">
             <div class="pointer-events-none absolute inset-0 opacity-70">
                 <div class="absolute left-[-6rem] top-16 h-72 w-72 rounded-full bg-[#d15f2f]/20 blur-3xl"></div>
@@ -18,7 +18,7 @@
                         </a>
 
                         <div class="flex items-center gap-3">
-                            <flux:button variant="ghost" size="sm" class="!text-white hover:!text-white hover:bg-white/10" :href="route('home')" wire:navigate>
+                            <flux:button variant="ghost" size="sm" class="cursor-pointer !text-white hover:!text-white hover:bg-white/10" type="button" @click="sitePreviewOpen = true">
                                 {{ __('View site') }}
                             </flux:button>
 
@@ -81,6 +81,40 @@
                 <flux:toast />
             </flux:toast.group>
         @endpersist
+
+        <div
+            x-cloak
+            x-show="sitePreviewOpen"
+            x-transition.opacity
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black/75 px-4 py-6 backdrop-blur-sm"
+            @click.self="sitePreviewOpen = false"
+        >
+            <div class="relative flex h-[92vh] w-full max-w-7xl flex-col overflow-hidden rounded-3xl border border-white/10 bg-[#0b0908] shadow-2xl shadow-black/60">
+                <div class="flex items-center justify-between gap-4 border-b border-white/10 px-4 py-3 sm:px-5">
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-[#f0a56f]">Site preview</p>
+                        <p class="text-sm text-[#d7c5b3]">Live view of the public homepage while you stay on the dashboard.</p>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <flux:button variant="ghost" size="sm" class="cursor-pointer !text-white hover:!text-white hover:bg-white/10" type="button" @click="document.getElementById('grapes-site-preview').contentWindow.location.reload()">
+                            {{ __('Refresh') }}
+                        </flux:button>
+
+                        <flux:button variant="ghost" size="sm" class="cursor-pointer !text-white hover:!text-white hover:bg-white/10" type="button" @click="sitePreviewOpen = false">
+                            {{ __('Close') }}
+                        </flux:button>
+                    </div>
+                </div>
+
+                <iframe
+                    id="grapes-site-preview"
+                    src="{{ route('home') }}"
+                    title="{{ __('Public site preview') }}"
+                    class="h-full w-full bg-white"
+                ></iframe>
+            </div>
+        </div>
 
         @fluxScripts
     </body>
